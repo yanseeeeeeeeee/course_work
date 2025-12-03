@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="70dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Регистрация"
+            android:textColor="@color/black"
+            android:textSize="25sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Создайте новый аккаунт чтобы начать."
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Имя"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"/>
+
+            <EditText
+                android:id="@+id/inputName"
+                android:layout_width="335dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/inputbutton"
+                android:hint="Иван"
+                android:paddingLeft="14dp"
+                android:paddingRight="57dp"
+                android:textColor="@color/hint"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Электронная почта"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:id="@+id/inputEmail"
+                android:layout_width="335dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/inputbutton"
+                android:hint="name@mail.ru"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="14dp"
+                android:paddingRight="57dp"
+                android:textColor="@color/hint"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Пароль"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/CreatePassword"
+                    android:layout_width="335dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/inputbutton"
+                    android:hint="Придумайте пароль"
+                    android:inputType="textPassword"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:textColor="@color/hint"
+                    android:textSize="18sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ConiformPassword"
+                    android:layout_width="335dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/inputbutton"
+                    android:hint="Повторите пароль"
+                    android:inputType="textPassword"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:textColor="@color/hint"
+                    android:textSize="18sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/button_signin"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
