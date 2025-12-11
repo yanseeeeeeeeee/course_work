@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/left_button"
+                android:layout_gravity="center_vertical"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Создать запись"
+                android:textColor="@color/black"
+                android:layout_marginEnd="40dp"
+                android:textSize="20dp"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Дата и время нарушения"
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical"/>
+
+
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/button_calendar"
+                android:layout_marginStart="40dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Вид нарушения"
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Выбрать"
+                android:layout_marginStart="40dp"
+                app:boxStrokeColor="@color/darkset"
+                android:layout_gravity="center_vertical"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Адрес"
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical"/>
+
+            <EditText
+                android:id="@+id/inputName"
+                android:layout_width="250dp"
+                android:layout_height="30dp"
+                android:background="@drawable/inputbutton"
+                android:hint="Адрес нарушения"
+                android:paddingLeft="14dp"
+                android:paddingRight="57dp"
+                android:layout_marginStart="40dp"
+                android:textColorHint="@color/darkset"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/inputComment"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:background="@drawable/inputbutton"
+            android:hint="Комментарий"
+            android:paddingLeft="14dp"
+            android:paddingRight="57dp"
+            android:paddingTop="14dp"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/hint"
+            android:textSize="14sp"
+            android:gravity="top|start"
+            android:inputType="textMultiLine"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/button_create"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="150dp"/>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
