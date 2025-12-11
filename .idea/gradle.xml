@@ -5,12 +5,21 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="testRunner" value="CHOOSE_PER_TEST" />
+<<<<<<< HEAD
         <option name="externalProjectPath" value="$PROJECT_DIR$/course_work-master" />
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/course_work-master" />
             <option value="$PROJECT_DIR$/course_work-master/app" />
+=======
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+>>>>>>> ac36ba8f4d8db0c6f05165fe2b6ce8457a0732ac
           </set>
         </option>
       </GradleProjectSettings>
