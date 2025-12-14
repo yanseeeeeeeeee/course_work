@@ -7,39 +7,31 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@drawable/blue_square"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        <TextView
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Записи"
+            android:textSize="28sp"
+            android:textColor="@color/text_primary"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:text="Записи"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="50dp"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/right_button" />
-
+            android:layout_marginTop="8dp"
+            android:text="Зафиксированные нарушения"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

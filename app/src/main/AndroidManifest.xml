@@ -11,8 +11,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CourseWork">
+        
+        <activity android:name=".AddRecords"
+            android:exported="true">
+        </activity>
+
+        <activity android:name=".Home"
+            android:exported="true">
+        </activity>
+
+        <activity android:name=".SignIn"
+            android:exported="true">
+        </activity>
+
+        <activity android:name=".ForgotPassword"
+            android:exported="true">
+        </activity>
+
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.theme.Main"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.CourseWork">

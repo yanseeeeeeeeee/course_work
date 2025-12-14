@@ -15,4 +15,12 @@
     <color name="Darkset">#C5C6CC</color>
     <color name="my_active_color">#FFFFFF</color>
     <color name="my_inactive_color">#EAF2FF</color>
+    <color name="bg_screen">#F4F9FF</color>
+    <color name="primary_blue">#4FACFE</color>
+    <color name="primary_blue_dark">#2F80ED</color>
+    <color name="surface_white">#FFFFFF</color>
+    <color name="field_bg">#EAF3FF</color>
+    <color name="text_primary">#1C1C1E</color>
+    <color name="text_secondary">#6B7280</color>
+
 </resources>

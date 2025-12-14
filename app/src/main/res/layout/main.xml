@@ -75,12 +75,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/forgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Забыли пароль?"
                 android:textColor="@color/darkset"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:clickable="true"/>
 
         </LinearLayout>
 
@@ -90,18 +92,18 @@
             android:orientation="vertical"
             android:layout_gravity="center">
             <ImageButton
-
+                android:id="@+id/signOn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@android:color/transparent"
                 app:srcCompat="@drawable/button_input" />
             <TextView
-
+                android:id="@+id/createAccount"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ещё не зарегистрированы? Зарегистрироваться."
+                android:text="Ещё не зарегистрированы? Создать аккаунт."
                 android:textColor="@color/hint"/>
 
 </LinearLayout>
