@@ -1,6 +1,7 @@
 package com.example.coursework.ui.theme;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -106,7 +107,6 @@ public class Main extends AppCompatActivity {
                 end,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         );
-
         createAccount.setText(spannableString);
         createAccount.setMovementMethod(LinkMovementMethod.getInstance());
     }
@@ -114,12 +114,17 @@ public class Main extends AppCompatActivity {
     public void checkUser(String email, String password) {
         if(dao.checkUser(email,password)){
             Toast.makeText(this, "Вход совершен", Toast.LENGTH_SHORT).show();
-
+            int inspectorId = dao.getIdInspector(email);
             String userName = dao.getName(email);
 
             Intent intent = new Intent(this, Home.class);
             intent.putExtra("user_name",userName);  //передача имени при успешном входе
             intent.putExtra("user_email", email);
+            SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+            prefs.edit()
+                    .putInt("inspector_id", inspectorId)
+                    .apply();
+
             startActivity(intent);
 
         } else {

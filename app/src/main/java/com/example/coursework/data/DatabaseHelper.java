@@ -60,15 +60,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         while ((length = input.read(buffer))>0) {
             output.write(buffer, 0, length); //создаем буфер и считываем данные
         }
-
         output.flush();
         output.close();
         input.close();
-
     }
 
     public SQLiteDatabase openDataBase(){
         return SQLiteDatabase.openDatabase(dbpath, null, SQLiteDatabase.OPEN_READWRITE); //открываем бд для записи и чтения
     }
-
 }

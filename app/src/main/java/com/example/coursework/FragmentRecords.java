@@ -1,5 +1,6 @@
 package com.example.coursework;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,14 +8,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 
 public class FragmentRecords extends Fragment {
 
-
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
 
     private String mParam1;
     private String mParam2;
@@ -45,6 +45,16 @@ public class FragmentRecords extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_records, container, false);
+        View view = inflater.inflate(R.layout.fragment_records, container, false);
+
+        ImageButton addRecords = view.findViewById(R.id.addRecords);
+        addRecords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AddRecords.class));
+            }
+        });
+
+        return view;
     }
 }

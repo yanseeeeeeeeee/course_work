@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +94,83 @@ public class DAO {
         return name;
     }
 
+    public boolean addRecodrs(String date, String adress, String passport,
+                           String coment, String narusheniaName,
+                              int idInspector) {
+
+        db.beginTransaction();
+
+        try {
+            int idNarushenia;
+
+            Cursor cursor1 = db.rawQuery("select id from narushenia where name =?", new String[]{narusheniaName});
+
+            if (!cursor1.moveToFirst()) {
+                cursor1.close();
+                return false;
+            }
+            idNarushenia=cursor1.getInt(0);
+            cursor1.close();
 
 
+            int idGrazhdane;
+
+            Cursor cursor2 = db.rawQuery("Select id from grazhdane where passport = ?", new String[]{passport});
+
+            if (!cursor2.moveToFirst()) {
+                cursor2.close();
+                return false;
+            }
+
+            idGrazhdane=cursor2.getInt(0);
+            cursor2.close();
+
+            int idNarushGrazh;
+
+            Cursor cursor3 = db.rawQuery("select id from narushenia_grazhdane where id_narushenia = ? and id_grazhdane = ?",
+                    new String[]{String.valueOf(idNarushenia),
+                            String.valueOf(idGrazhdane)});
+
+            if(!cursor3.moveToFirst()) {
+                cursor3.close();
+                return false;
+            }
+            else {
+                ContentValues value = new ContentValues();
+                value.put("id_narushenia",idNarushenia);
+                value.put("id_grazhdane", idGrazhdane);
+                idNarushGrazh = (int) db.insert("narushenia_grazhdane",null, value);
+            }
+            cursor3.close();
+
+            ContentValues values = new ContentValues();
+            values.put("date",date);
+            values.put("id_narushenia_grazhdane", idNarushGrazh);
+            values.put("adress", adress);
+            values.put("coment", coment);
+            values.put("id_inspector", idInspector);
+
+            db.insertOrThrow("records", null, values);
+            db.setTransactionSuccessful();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.endTransaction();
+        }
+
+    }
+
+    public int getIdInspector(String login) {
+        int idInspector = -1;
+        Cursor cursor = db.rawQuery("select id from inspector where login = ?", new String[]{login});
+        if (cursor.moveToFirst()){
+            idInspector = cursor.getInt(0);
+        }
+        cursor.close();
+        return idInspector;
+    }
 
 }

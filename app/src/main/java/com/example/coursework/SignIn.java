@@ -87,10 +87,8 @@ public class SignIn extends AppCompatActivity {
                         }
             }
         });
-
         //обработка по кнопке "назад"
         back.setOnClickListener(v -> finish());
-
     }
 
     public boolean createAccount(String password, String email, String name,
@@ -106,7 +104,6 @@ public class SignIn extends AppCompatActivity {
                 Toast.makeText(this, "Регистрация завершена", Toast.LENGTH_SHORT).show();
                 res = true;
             }
-
             return res;
     }
 

@@ -22,6 +22,7 @@ public class Home extends AppCompatActivity {
         String userName = getIntent().getStringExtra("user_name");
         String email = getIntent().getStringExtra("user_email");
 
+
         if (savedInstanceState==null) {
             loadFragment(new FragmentRecords());
         }
@@ -40,14 +41,14 @@ public class Home extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("user_name", userName);
                 bundle.putString("user_email", email);
+                int inspectorId = getSharedPreferences("user", MODE_PRIVATE)
+                        .getInt("inspector_id", -1);
+
                 fragment.setArguments(bundle);
-
             }
-
                 loadFragment(fragment);
             return true;
         });
-
     }
 
     //метод загрузки контейнеров
