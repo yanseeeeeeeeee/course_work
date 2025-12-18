@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.coursework.Controller.ModelRecords;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,8 @@ public class DAO {
         this.db = db;
     }
 
+
+    //список с названиями нарушений
     public List<String> getNameNarushenia() {
         List<String> list = new ArrayList<>();
         Cursor cursor = db.rawQuery("select name from narushenia", null);//запросик к бд
@@ -31,6 +35,7 @@ public class DAO {
         return list;
     }
 
+    //проверка логина и пароля
     public boolean checkUser(String login, String password) {
 
         String query = "select * from inspector where login = ? and password = ?";
@@ -45,6 +50,7 @@ public class DAO {
 
     }
 
+    //проверка существования такого пользователя
     public boolean checkLogin(String login) {
         String query = "select * from inspector where login = ?";
         Cursor cursor = db.rawQuery(query,new String[]{login});
@@ -57,6 +63,8 @@ public class DAO {
         return  exists;
     }
 
+
+    //для регистрации пользователя
     public long insertUser(String password, String login,
             String name, String surname, String lastName,
                            String departament, String post) {
@@ -82,6 +90,8 @@ public class DAO {
 
     }
 
+
+    //получаем имя нашего инспектора по логину
     public String getName(String login) {
         String name = null;
         Cursor cursor = db.rawQuery("select name from inspector where login = ?", new String[]{login});
@@ -94,7 +104,8 @@ public class DAO {
         return name;
     }
 
-    public boolean addRecodrs(String date, String adress, String passport,
+    //добавление записи в бд
+    public boolean addRecords(String date, String adress, String passport,
                            String coment, String narusheniaName,
                               int idInspector) {
 
@@ -131,15 +142,20 @@ public class DAO {
                     new String[]{String.valueOf(idNarushenia),
                             String.valueOf(idGrazhdane)});
 
-            if(!cursor3.moveToFirst()) {
-                cursor3.close();
-                return false;
+            if(cursor3.moveToFirst()) {
+                idNarushGrazh = cursor3.getInt(0);
             }
             else {
                 ContentValues value = new ContentValues();
                 value.put("id_narushenia",idNarushenia);
                 value.put("id_grazhdane", idGrazhdane);
-                idNarushGrazh = (int) db.insert("narushenia_grazhdane",null, value);
+
+                long res = db.insert("narushenia_grazhdane", null, value);
+                if (res == -1) {
+                    cursor3.close();
+                    return false;
+                }
+                idNarushGrazh = (int) res;
             }
             cursor3.close();
 
@@ -163,6 +179,7 @@ public class DAO {
 
     }
 
+    //получение id инспектора
     public int getIdInspector(String login) {
         int idInspector = -1;
         Cursor cursor = db.rawQuery("select id from inspector where login = ?", new String[]{login});
@@ -172,5 +189,84 @@ public class DAO {
         cursor.close();
         return idInspector;
     }
+
+    //для получения записей на главном экране
+    public List<ModelRecords> getRecordsByInspector(int inspectorId) {
+        List<ModelRecords> list = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT r.date, r.adress, n.name, g.passport, r.coment " +
+                        "FROM records r " +
+                        "JOIN narushenia_grazhdane ng ON r.id_narushenia_grazhdane = ng.id " +
+                        "JOIN narushenia n ON ng.id_narushenia = n.id " +
+                        "JOIN grazhdane g ON ng.id_grazhdane = g.id " +
+                        "WHERE r.id_inspector = ? " +
+                        "ORDER BY r.date DESC",
+                new String[]{String.valueOf(inspectorId)}
+        );
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(new ModelRecords(
+                        cursor.getString(0), // date
+                        cursor.getString(1), // address
+                        cursor.getString(3), // passport
+                        cursor.getString(4), // comment
+                        cursor.getString(2)  // violation (narushenia_name)
+                ));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return list;
+    }
+
+    //для счетчика записей в профиле
+    public int getRecordsCountByInspector(int inspectorId) {
+        int count = 0;
+        Cursor cursor = db.rawQuery(
+                "SELECT COUNT(*) FROM records WHERE id_inspector = ?",
+                new String[]{String.valueOf(inspectorId)}
+        );
+
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
+    }
+
+    //для создания отчетов
+    public List<ModelRecords> getRecordsByInspectorAndDate(int inspectorId, String startDate, String endDate) {
+        List<ModelRecords> list = new ArrayList<>();
+
+        String query = "SELECT r.date, r.adress, g.passport, r.coment, n.name " +
+                "FROM records r " +
+                "JOIN narushenia_grazhdane ng ON r.id_narushenia_grazhdane = ng.id " +
+                "JOIN narushenia n ON ng.id_narushenia = n.id " +
+                "JOIN grazhdane g ON ng.id_grazhdane = g.id " +
+                "WHERE r.id_inspector = ? AND r.date BETWEEN ? AND ? " +
+                "ORDER BY r.date DESC";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(inspectorId), startDate, endDate});
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(new ModelRecords(
+                        cursor.getString(0), // date
+                        cursor.getString(1), // address
+                        cursor.getString(2), // passport
+                        cursor.getString(3), // comment
+                        cursor.getString(4)  // violation
+                ));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return list;
+    }
+
+
+
 
 }

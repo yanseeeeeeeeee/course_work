@@ -1,6 +1,7 @@
 package com.example.coursework;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -82,6 +83,15 @@ public class SignIn extends AppCompatActivity {
                     else { //запись в бд + переход на след. активити
 
                         if(createAccount(password, email, name, surname, patronymic, departament, post)){
+                            int inspectorId = dao.getIdInspector(email); // получаем id нового инспектора
+                            String userName = dao.getName(email);        // получаем имя нового пользователя
+
+                            SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+                            prefs.edit()
+                                    .putString("user_name", userName)
+                                    .putString("user_email", email)
+                                    .putInt("inspector_id", inspectorId)
+                                    .apply();
                             startActivity(new Intent(SignIn.this, Home.class));
                             overridePendingTransition(0,0);}
                         }

@@ -124,6 +124,7 @@
                 android:textColor="@color/black"/>
 
             <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/exportToggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -131,12 +132,14 @@
                 app:selectionRequired="true">
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_pdf"
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
                     android:text="PDF"
                     style="@style/MySegmentedButtonStyle"/>
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_csv"
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
                     android:text="CSV"
@@ -145,6 +148,19 @@
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tvRecordCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Записей: 0"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/formatCard" />
+
 
     <!-- Button -->
     <com.google.android.material.button.MaterialButton

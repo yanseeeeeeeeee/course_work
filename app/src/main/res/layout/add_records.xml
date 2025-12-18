@@ -81,19 +81,17 @@
                         android:orientation="horizontal"
                         android:gravity="center_vertical">
 
-                        <EditText
+                        <TextView
                             android:id="@+id/inputDate"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:background="@android:color/transparent"
-                            android:hint="Выберите дату"
+                            android:text="Выберите дату"
                             android:padding="10dp"
-                            android:focusable="false"
-                            android:textColorHint="@color/darkset"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/darkset"/>
 
                         <ImageButton
+                            android:id="@+id/datePicker"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
@@ -165,28 +163,7 @@
                         android:textColor="@color/black"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Вод. удостоверение (при наличии)"
-                    app:boxStrokeColor="@color/light_blue"
-                    android:layout_marginTop="10dp"
-                    app:boxCornerRadiusTopStart="8dp"
-                    app:boxCornerRadiusTopEnd="8dp"
-                    app:boxCornerRadiusBottomStart="8dp"
-                    app:boxCornerRadiusBottomEnd="8dp">
 
-                    <EditText
-                        android:id="@+id/inputPrawa"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:padding="10dp"
-                        android:inputType="number"
-                        android:maxLength="10"
-                        android:textColorHint="@color/darkset"
-                        android:textColor="@color/black"/>
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

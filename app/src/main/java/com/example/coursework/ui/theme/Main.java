@@ -60,6 +60,7 @@ public class Main extends AppCompatActivity {
         db = databaseHelper.openDataBase();
         dao = new DAO(db);
 
+        //кнопка для входа в аккаунт
         signOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +75,7 @@ public class Main extends AppCompatActivity {
             }
         });
 
+        //кнопка для обработчика замены пароля
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,10 +120,10 @@ public class Main extends AppCompatActivity {
             String userName = dao.getName(email);
 
             Intent intent = new Intent(this, Home.class);
-            intent.putExtra("user_name",userName);  //передача имени при успешном входе
-            intent.putExtra("user_email", email);
             SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
             prefs.edit()
+                    .putString("user_name", userName)
+                    .putString("user_email", email)
                     .putInt("inspector_id", inspectorId)
                     .apply();
 
