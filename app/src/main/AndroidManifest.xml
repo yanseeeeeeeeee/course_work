@@ -28,6 +28,10 @@
             android:exported="true">
         </activity>
 
+        <activity android:name=".EditRecord"
+            android:exported="true">
+        </activity>
+
         <activity
             android:name=".ui.theme.Main"
             android:exported="true"

@@ -1,15 +1,18 @@
 package com.example.coursework.Controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.coursework.EditRecord;
 import com.example.coursework.R;
 
 import java.util.List;
@@ -40,6 +43,12 @@ public class RecordController extends RecyclerView.Adapter<RecordController.View
         holder.tvAddress.setText(record.adress);
         holder.tvViolation.setText(record.narushenia_name);
         holder.tvPassport.setText("Паспорт: " + record.passport);
+        holder.edit.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EditRecord.class);
+            intent.putExtra("record_id", position);
+            context.startActivity(intent);
+        });
+
 
         if (record.coment == null || record.coment.isEmpty()) {
             holder.tvComment.setVisibility(View.GONE);
@@ -56,6 +65,7 @@ public class RecordController extends RecyclerView.Adapter<RecordController.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvDate, tvAddress, tvViolation,  tvPassport,tvComment;
+        ImageButton edit;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +74,7 @@ public class RecordController extends RecyclerView.Adapter<RecordController.View
             tvViolation = itemView.findViewById(R.id. tvViolation);
             tvPassport = itemView.findViewById(R.id.tvPassport);
             tvComment = itemView.findViewById(R.id.tvComment);
+            edit = itemView.findViewById(R.id.buttonEdit);
 
 
         }

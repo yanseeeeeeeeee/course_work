@@ -120,6 +120,7 @@ public class Main extends AppCompatActivity {
             String userName = dao.getName(email);
 
             Intent intent = new Intent(this, Home.class);
+
             SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
             prefs.edit()
                     .putString("user_name", userName)

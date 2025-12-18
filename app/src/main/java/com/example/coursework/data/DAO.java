@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.coursework.Controller.InspectorModel;
 import com.example.coursework.Controller.ModelRecords;
+import com.example.coursework.Controller.ReportRecord;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -266,7 +268,128 @@ public class DAO {
         return list;
     }
 
+    //получаем информацию об инспекторе для отчетов
+    public InspectorModel getInspectorInfo(int inspectorId) {
+        InspectorModel inspector = null;
+
+        Cursor cursor = db.rawQuery(
+                "SELECT last_name, name, second_name, departament " +
+                        "FROM inspector WHERE id = ?",
+                new String[]{String.valueOf(inspectorId)}
+        );
+
+        if (cursor.moveToFirst()) {
+            inspector = new InspectorModel(
+                    cursor.getString(0), // lastName
+                    cursor.getString(1), // firstName
+                    cursor.getString(2), // patronymic
+                    cursor.getString(3)  // department
+            );
+        }
+
+        cursor.close();
+        return inspector;
+    }
 
 
+
+    public List<ReportRecord> getReportRecords(
+            int inspectorId,
+            String startDate,
+            String endDate
+    ) {
+        List<ReportRecord> list = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT r.date, " +
+                        "g.last_name || ' ' || g.name || ' ' || IFNULL(g.second_name, '') AS citizen_fio, " +
+                        "r.adress, " +
+                        "n.name AS violation, " +
+                        "g.passport " +
+                        "FROM records r " +
+                        "JOIN narushenia_grazhdane ng ON r.id_narushenia_grazhdane = ng.id " +
+                        "JOIN narushenia n ON ng.id_narushenia = n.id " +
+                        "JOIN grazhdane g ON ng.id_grazhdane = g.id " +
+                        "WHERE r.id_inspector = ? AND r.date BETWEEN ? AND ? " +
+                        "ORDER BY r.date",
+                new String[]{
+                        String.valueOf(inspectorId),
+                        startDate,
+                        endDate
+                }
+        );
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(new ReportRecord(
+                        cursor.getString(0), // date
+                        cursor.getString(1), // citizenFio
+                        cursor.getString(2), // address
+                        cursor.getString(3), // violation
+                        cursor.getString(4)  // passport
+                ));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return list;
+    }
+
+    //получение записи для дальнейшего ее изменения
+    public ModelRecords getRecordById(int recordId) {
+        ModelRecords record = null;
+
+        Cursor cursor = db.rawQuery(
+                "SELECT r.date, " +
+                        "r.adress, " +
+                        "r.coment, " +
+                        "n.name AS violation, " +
+                        "g.passport " +
+                        "FROM records r " +
+                        "JOIN narushenia_grazhdane ng ON r.id_narushenia_grazhdane = ng.id " +
+                        "JOIN narushenia n ON ng.id_narushenia = n.id " +
+                        "JOIN grazhdane g ON ng.id_grazhdane = g.id " +
+                        "WHERE r.id = ?",
+                new String[]{String.valueOf(recordId)}
+        );
+
+        if (cursor.moveToFirst()) {
+            record = new ModelRecords(
+                    cursor.getString(0), // date
+                    cursor.getString(1), // address
+                    cursor.getString(4), // passport
+                    cursor.getString(2), // comment
+                    cursor.getString(3)  // violation
+            );
+        }
+
+        cursor.close();
+        return record;
+    }
+
+    //для обновления записи
+
+    // Обновляем только date, adress и coment, не трогая ng.id
+    public boolean updateRecord(int recordId, String date, String adress, String passport, String coment, String narusheniaName) {
+        try {
+            db.execSQL(
+                    "UPDATE records SET date = ?, adress = ?, coment = ? WHERE id = ?",
+                    new Object[]{date, adress, coment, recordId}
+            );
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
+
+
+
+
+
+
+
+
+

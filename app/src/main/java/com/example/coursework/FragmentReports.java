@@ -2,6 +2,7 @@ package com.example.coursework;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,10 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.coursework.Controller.InspectorModel;
 import com.example.coursework.Controller.ModelRecords;
 import com.example.coursework.Controller.ReportGenerator;
+import com.example.coursework.Controller.ReportRecord;
 import com.example.coursework.R;
 import com.example.coursework.data.DAO;
 import com.example.coursework.data.DatabaseHelper;
@@ -31,6 +34,8 @@ public class FragmentReports extends Fragment {
     private MaterialButton btnGenerate;
     private DAO dao;
     private int inspectorId;
+    private InspectorModel inspector;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,14 +74,30 @@ public class FragmentReports extends Fragment {
                 return;
             }
 
+            inspectorId = requireContext()
+                    .getSharedPreferences("user", Context.MODE_PRIVATE)
+                    .getInt("inspector_id", -1);
+
+            inspector = dao.getInspectorInfo(inspectorId);
+
+            if (inspector == null) {
+                Toast.makeText(requireContext(),
+                        "Ошибка загрузки данных инспектора",
+                        Toast.LENGTH_SHORT).show();
+            }
             tvRecordCount.setText("Записей: " + records.size());
 
-            boolean isPdf = toggleGroup.getCheckedButtonId() == R.id.btn_pdf;
-            File file = ReportGenerator.generateReport(requireContext(), records, isPdf);
+            List<ReportRecord> recordsList = dao.getReportRecords(inspectorId,start,end);
 
-            Toast.makeText(requireContext(),
-                    "Отчёт создан: " + file.getAbsolutePath(),
-                    Toast.LENGTH_LONG).show();
+            boolean isPdf = toggleGroup.getCheckedButtonId() == R.id.btn_pdf;
+
+            ReportGenerator.generateReport(
+                    requireContext(),
+                    recordsList,
+                    inspector,
+                    isPdf
+            );
+
         });
 
         return view;

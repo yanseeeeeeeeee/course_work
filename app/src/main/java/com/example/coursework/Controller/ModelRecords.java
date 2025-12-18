@@ -7,7 +7,7 @@ public class ModelRecords {
     public String coment;
     public String narushenia_name;
 
-    public ModelRecords(String date, String adress, String passport,
+    public ModelRecords( String date, String adress, String passport,
                         String coment, String narushenia_name){
         this.date = date;
         this.adress = adress;
