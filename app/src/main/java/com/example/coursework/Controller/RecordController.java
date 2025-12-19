@@ -22,10 +22,12 @@ public class RecordController extends RecyclerView.Adapter<RecordController.View
     private Context context;
 
     private List<ModelRecords> list;
+    private List<ModelRecords> fullList;
 
     public RecordController(Context context, List<ModelRecords> list) {
         this.context = context;
         this.list = list;
+        this.fullList = new java.util.ArrayList<>(list);
     }
 
     @NonNull
@@ -79,4 +81,26 @@ public class RecordController extends RecyclerView.Adapter<RecordController.View
 
         }
     }
+
+    public void filter(String text) {
+        list.clear();
+
+        if (text == null || text.trim().isEmpty()) {
+            list.addAll(fullList);
+        } else {
+            text = text.toLowerCase();
+
+            for (ModelRecords record : fullList) {
+                if ((record.adress != null && record.adress.toLowerCase().contains(text)) ||
+                        (record.narushenia_name != null && record.narushenia_name.toLowerCase().contains(text)) ||
+                        (record.passport != null && record.passport.toLowerCase().contains(text)) ||
+                        (record.coment != null && record.coment.toLowerCase().contains(text))) {
+
+                    list.add(record);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 }

@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import androidx.appcompat.widget.SearchView;
+
 
 import com.example.coursework.Controller.RecordController;
 import com.example.coursework.data.DAO;
@@ -78,6 +80,24 @@ public class FragmentRecords extends Fragment {
         RecordController adapter = new RecordController(requireContext(), dao.getRecordsByInspector(inspectorId));
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);
+
+        //поиск по записям
+        SearchView searchView = view.findViewById(R.id.searchView);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filter(newText);
+                return false;
+            }
+        });
+
 
 
         ImageButton addRecords = view.findViewById(R.id.addRecords);
